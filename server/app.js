@@ -8,7 +8,7 @@ import logger from './config/logger';
 Promise.promisifyAll(mongoose);
 
 // connect to mongo db
-mongoose.connect(config.db, { server: { socketOptions: { keepAlive: 1 } } });
+mongoose.connect(config.mongo.url, { server: { socketOptions: { keepAlive: 1 } } });
 mongoose.connection.on('error', () => {
 	logger.error("unable to connect to database: %s",config.db);
 });

@@ -2,6 +2,8 @@ import User from '../models/user';
 import co from 'co';
 import NotFound from '../helpers/NotFound';
 import Response from '../helpers/Response';
+import cache from '../config/cache';
+const cacheKey = "*/v1/users*";
 
 async function getUsers(req, res, next) {
 	const query = {
@@ -42,7 +44,7 @@ async function createUser(req, res, next) {
 	});
 
 	const userObj = await user.saveAsync();
-	
+	await cache.delAsync(cacheKey);
 	const data = {user : userObj};
 	next(new Response(data));
 }
@@ -64,6 +66,7 @@ async function updateUser(req, res, next) {
 	if(!userObj){
 		next(new NotFound());
 	}else{
+		await cache.delAsync(cacheKey);
 		const data = {user : userObj};
 		next(new Response(data));
 	}
@@ -76,6 +79,7 @@ async function deleteUser(req, res, next) {
 	if(!userObj){
 		next(new NotFound());
 	}else{
+		await cache.delAsync(cacheKey);
 		const data = {user : userObj};
 		next(new Response(data));
 	}

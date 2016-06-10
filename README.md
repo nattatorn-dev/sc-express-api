@@ -4,7 +4,7 @@
 
 A sample project for REST API with mongoDB with basic feature
 
-logging, profile, swagger, babel, EC2016
+logging, profile, cache, swagger, babel, EC2016
 
 ## BEFORE RUN it
 
@@ -24,7 +24,7 @@ Also, a primary key counter recorded is needed in mongodb
 
 > npm install
 
-##### run unit test (90% complete)
+##### run unit test (working on it)
 
 > npm test
 

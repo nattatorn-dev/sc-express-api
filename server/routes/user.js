@@ -192,13 +192,15 @@ const router = express.Router();	// eslint-disable-line new-cap
 
 const rules =  {
 	getUsers : {
-		userName : Validator.User.userName.optional(),
-		email : Validator.User.email.optional(),
-		mobile: Validator.User.mobile.optional(),
-		page : Validator.List.page.optional(),
-		count : Validator.List.count.optional(),
-		fields : Validator.List.fields.optional(),
-		sorts : Validator.List.sorts.optional(),
+		query: {
+			userName : Validator.User.userName.optional(),
+			email : Validator.User.email.optional(),
+			mobile: Validator.User.mobile.optional(),
+			page : Validator.List.page.optional(),
+			count : Validator.List.count.optional(),
+			fields : Validator.List.fields.optional(),
+			sorts : Validator.List.sorts.optional()
+		}
 	},
 	getUser : {
 		params: {
