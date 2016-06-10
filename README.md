@@ -40,7 +40,7 @@ Also, a primary key counter recorded is needed in mongodb
 
 ##### start the application
 
-> NODE_ENV=prod pm2 start app.js
+> NODE_ENV=prod pm2 start index.js
 
 dev, uat, prod stands for different environment
 
