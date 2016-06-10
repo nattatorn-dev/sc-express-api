@@ -4,49 +4,231 @@ import validate from 'express-validation';
 import Joi from 'joi';
 import request from '../middlewares/request';
 import errorCatcher from '../utils/errorCatcher';
+import Validator from '../utils/validator';
 
 const router = express.Router();	// eslint-disable-line new-cap
 
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     description: Get User List
+ *     produces:
+ *       - application/json
+ *     tags:
+ *       - UsersApi
+ *     parameters:
+ *       - name: userName
+ *         description: userName
+ *         in: query
+ *         required: false
+ *         type: string
+ *       - name: email
+ *         description: email
+ *         in: query
+ *         required: false
+ *         type: string
+ *       - name: mobile
+ *         description: mobile
+ *         in: query
+ *         required: false
+ *         type: string
+ *       - name: page
+ *         description: page No (Default 0)
+ *         in: query
+ *         required: false
+ *         type: integer
+ *       - name: count
+ *         description: pageSize (Default 10)
+ *         in: query
+ *         required: false
+ *         type: integer
+ *       - name: fields
+ *         description: filter fields (separate with ',')
+ *         in: query
+ *         required: false
+ *         type: string
+ *       - name: sorts
+ *         description: sorts fields (separate with ',')
+ *         in: query
+ *         required: false
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *       400:
+ *         description: (4001) validation error
+ *       500:
+ *         description: (5001) database error
+ */
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     description: Get User Detail
+ *     produces:
+ *       - application/json
+ *     tags:
+ *       - UsersApi
+ *     parameters:
+ *       - name: id
+ *         description: userId
+ *         in: path
+ *         required: true
+ *         type: string
+ *       - name: fields
+ *         description: filter fields 
+ *         in: query
+ *         required: false
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *       400:
+ *         description: (4001) validation error
+ *       404:
+ *         description: (4004) no record is found
+ *       500:
+ *         description: (5001) database error
+ */
+ /**
+ * @swagger
+ * /users:
+ *   post:
+ *     description: Create User
+ *     produces:
+ *       - application/json
+ *     tags:
+ *       - UsersApi
+ *     parameters:
+ *       - name: userName
+ *         description: userName
+ *         in: query
+ *         required: true
+ *         type: string
+ *       - name: email
+ *         description: email
+ *         in: query
+ *         required: true
+ *         type: string
+ *       - name: mobile
+ *         description: mobile
+ *         in: query
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *       400:
+ *         description: (4001) validation error
+ *       500:
+ *         description: (5001) database error
+ */
+ /**
+ * @swagger
+ * /users/{id}:
+ *   put:
+ *     description: Update User
+ *     produces:
+ *       - application/json
+ *     tags:
+ *       - UsersApi
+ *     parameters:
+ *       - name: id
+ *         description: userId
+ *         in: path
+ *         required: true
+ *         type: string
+ *       - name: userName
+ *         description: userName
+ *         in: query
+ *         required: true
+ *         type: string
+ *       - name: email
+ *         description: email
+ *         in: query
+ *         required: true
+ *         type: string
+ *       - name: mobile
+ *         description: mobile
+ *         in: query
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *       400:
+ *         description: (4001) validation error
+ *       404:
+ *         description: (4004) no record is found
+ *       500:
+ *         description: (5001) database error
+ */
+ /**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     description: Delete User
+ *     produces:
+ *       - application/json
+ *     tags:
+ *       - UsersApi
+ *     parameters:
+ *       - name: id
+ *         description: userId
+ *         in: path
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: success
+ *       400:
+ *         description: (4001) validation error
+ *       404:
+ *         description: (4004) no record is found
+ *       500:
+ *         description: (5001) database error
+ */
+
 const rules =  {
 	getUsers : {
-		userName : Joi.string().optional(),
-		email : Joi.string().optional(),
-		mobile: Joi.string().optional(),
-		page : Joi.number().integer().optional(),
-		count : Joi.number().integer().optional(),
-		fields : Joi.string().optional(),
-		sorts : Joi.string().optional(),
+		userName : Validator.User.userName.optional(),
+		email : Validator.User.email.optional(),
+		mobile: Validator.User.mobile.optional(),
+		page : Validator.List.page.optional(),
+		count : Validator.List.count.optional(),
+		fields : Validator.List.fields.optional(),
+		sorts : Validator.List.sorts.optional(),
 	},
 	getUser : {
 		params: {
-			userId: Joi.number().integer().required(),
-			fields : Joi.string().optional(),
+			userId: Validator.User.userId.required(),
+			fields : Validator.List.fields.optional(),
 		}
 	},
 	createUser: {
 		query: {
-			userName : Joi.string().required(),
-			email : Joi.string().email(),
-			mobile: Joi.string().regex(/^[1-9][0-9]{7}$/).required()
+			userName : Validator.User.userName.required(),
+			email : Validator.User.email.required(),
+			mobile: Validator.User.mobile.required()
 		}
 	},
 	updateUser: {
 		query: {
-			userName: Joi.string().required(),
-			email : Joi.string().email(),
-			mobile: Joi.string().regex(/^[1-9][0-9]{7}$/).required()
+			userName: Validator.User.userName.required(),
+			email : Validator.User.email.required(),
+			mobile: Validator.User.mobile.required()
 		},
 		params: {
-			userId: Joi.number().integer().required()
+			userId: Validator.User.userId.required()
 		}
 	},
 	deleteUser : {
 		params: {
-			userId: Joi.number().integer().required()
+			userId: Validator.User.userId.required()
 		}
 	}
 };
-
 
 router.get('/', validate(rules.getUsers), request.handleFields, request.handleListParams, errorCatcher(userCtrl.getUsers));
 

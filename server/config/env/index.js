@@ -4,6 +4,7 @@ import devConfig from './dev';
 import uatConfig from './uat';
 import prodConfig from './prod';
 
+//common config
 const config = {
 	root: "Hello"
 };

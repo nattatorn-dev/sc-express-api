@@ -14,4 +14,4 @@ function systemError(err){
 	return { meta : { code : 5001 , message : "system error", errors : err }}; 
 }
 
-export default {normal, invalidParam, noRecord, systemError}
+export default {normal, invalidParam, noRecord, systemError};
