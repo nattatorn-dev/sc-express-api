@@ -16,7 +16,7 @@ const config = {
 	port: 3000,
 	logger : {
 		method : "console",
-		level : "info",
+		level : "debug",
 		filePath : ""
 	}
 };

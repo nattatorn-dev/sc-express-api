@@ -74,8 +74,8 @@ async function updateUser(req, res, next) {
 
 async function deleteUser(req, res, next) {
 	const query = {userId : req.params.userId};
-	const userObj = User.findOneAndRemoveAsync(query);
-	
+	const userObj = await User.findOneAndRemoveAsync(query);
+	console && console.log(userObj);
 	if(!userObj){
 		next(new NotFound());
 	}else{
