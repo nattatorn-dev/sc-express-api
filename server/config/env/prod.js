@@ -15,9 +15,9 @@ const config = {
 	},
 	port: 3000,
 	logger : {
-		method : "console",
+		method : "file",
 		level : "info",
-		filePath : ""
+		filePath : "/opt/sc-express-api-es6/logs/all-logs.log"
 	}
 };
 
