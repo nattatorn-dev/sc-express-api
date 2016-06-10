@@ -50,7 +50,7 @@ async function createUser(req, res, next) {
 }
 
 async function updateUser(req, res, next) {
-	const query = {userId : req.params.id };
+	const query = {userId : req.params.userId };
 	const user = { $set : {
 		userName : req.query.userName,
 		email : req.query.email,
@@ -73,7 +73,7 @@ async function updateUser(req, res, next) {
 }
 
 async function deleteUser(req, res, next) {
-	const query = {userId : req.params.id};
+	const query = {userId : req.params.userId};
 	const userObj = User.findOneAndRemoveAsync(query);
 	
 	if(!userObj){
