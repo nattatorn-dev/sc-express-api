@@ -2,7 +2,7 @@
 
 ## Description
 
-A sample project for REST API with mongoDB with basic feature
+A sample project for REST API with mongoDB with basic CRUD features 
 
 logging, profile, cache, swagger, babel, EC2016
 
@@ -10,7 +10,7 @@ logging, profile, cache, swagger, babel, EC2016
 
 <a href = "https://www.mongodb.com"> MONGO</a> , <a href = "http://redis.io/">REDIS</a> are needed 
 
-Currently using localhost with default port, u can config them in config/dbConfig.js
+Currently using localhost with default port, u can config them in server/config/{env}.js
 
 Also, a primary key counter recorded is needed in mongodb
 
