@@ -24,7 +24,7 @@ Also, a primary key counter recorded is needed in mongodb
 
 > npm install
 
-##### run unit test (working on it)
+##### run unit test
 
 > npm test
 
