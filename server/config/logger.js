@@ -1,12 +1,14 @@
 import winston from 'winston';
 import config from './env';
 import _ from 'lodash';
+import dailyRotate from 'winston-daily-rotate-file';
 
 const method = config.logger.method;
 const level = config.logger.level;
 const filePath = config.logger.filePath;
 
 winston.emitErrs = true;
+
 
 let transports = [];
 
@@ -26,7 +28,7 @@ const fileConfig = {
 
 if(method === "file"){
     _.assign(commonConfig, fileConfig);
-	transports = [new winston.transports.File(commonConfig)];
+	transports = [new dailyRotate(commonConfig)];
 }else{
 	transports = [new winston.transports.Console(commonConfig)];
 }
