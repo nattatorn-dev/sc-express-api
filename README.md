@@ -53,3 +53,7 @@ Online demo on AWS
 
 http://ec2-52-196-132-150.ap-northeast-1.compute.amazonaws.com/docs/
 
+## Room for improvement
+
+1) All use arrow function
+2) POST, PUT use body request
