@@ -1,4 +1,4 @@
-# sc-express-api-es6
+# sc-express-api-es7
 
 ## Description
 
