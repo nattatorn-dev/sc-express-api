@@ -50,7 +50,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 
   it("should create a new user record",function(done){
     server
-    .post("/v1/users?userName=mocha&email=mocha@gmail.com&mobile=12345678")
+    .post("/v1/users")
+    .send({userName:"mocha",email:"mocha@gmail.com",mobile:"12345678"})
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err,res){
@@ -59,22 +60,11 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
       done();
     });
   });
-  
+
   it("should have validation error when userName is invalid",function(done){
     server
-    .post("/v1/users?userName=m&email=mocha@gmail.com&mobile=12345678")
-    .expect("Content-type",/json/)
-    .expect(400) // THis is HTTP response
-    .end(function(err,res){
-      res.status.should.equal(400);
-      res.body.meta.code.should.equal(4001);
-      done();
-    });
-  });
-
-   it("should have validation error when userName is invalid",function(done){
-    server
-    .post("/v1/users?userName=m&email=mocha@gmail.com&mobile=12345678")
+    .post("/v1/users")
+    .send({userName:"m",email:"mocha@gmail.com",mobile:"12345678"})
     .expect("Content-type",/json/)
     .expect(400) // THis is HTTP response
     .end(function(err,res){
@@ -86,7 +76,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 
   it("should have validation error when email is invalid (no @) ",function(done){
     server
-    .post("/v1/users?userName=mocha&email=mochagmail.com&mobile=12345678")
+    .post("/v1/users")
+    .send({userName:"mocha",email:"mochagmail.com",mobile:"12345678"})
     .expect("Content-type",/json/)
     .expect(400) // THis is HTTP response
     .end(function(err,res){
@@ -99,7 +90,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 
   it("should have validation error when mobile length is too short",function(done){
     server
-    .post("/v1/users?userName=mocha&email=mocha@gmail.com&mobile=78")
+    .post("/v1/users")
+    .send({userName:"mocha",email:"mocha@gmail.com",mobile:"78"})
     .expect("Content-type",/json/)
     .expect(400) // THis is HTTP response
     .end(function(err,res){
@@ -111,7 +103,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 
   it("should have validation error when mobile length is too long",function(done){
     server
-    .post("/v1/users?userName=mocha&email=mocha@gmail.com&mobile=2222222222222222222222222222")
+    .post("/v1/users")
+    .send({userName:"mocha",email:"mocha@gmail.com",mobile:"2222222222222222222222222222"})
     .expect("Content-type",/json/)
     .expect(400) // THis is HTTP response
     .end(function(err,res){
@@ -123,7 +116,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 
   it("should have validation error when mobile is alpha",function(done){
     server
-    .post("/v1/users?userName=mocha&email=mocha@gmail.com&mobile=aaaaa")
+    .post("/v1/users")
+    .send({userName:"mocha",email:"mocha@gmail.com",mobile:"aaaaa"})
     .expect("Content-type",/json/)
     .expect(400) // THis is HTTP response
     .end(function(err,res){
@@ -147,7 +141,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 
   it("should have validation error when only uesrName is sent",function(done){
     server
-    .post("/v1/users?userName=mocha")
+    .post("/v1/users")
+    .send({userName:"mocha"})
     .expect("Content-type",/json/)
     .expect(400) // THis is HTTP response
     .end(function(err,res){
@@ -159,7 +154,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 
   it("should have validation error when only email is sent",function(done){
     server
-    .post("/v1/users?email=mocha@email.com")
+    .post("/v1/users")
+    .send({email:"mocha@email.com"})
     .expect("Content-type",/json/)
     .expect(400) // THis is HTTP response
     .end(function(err,res){
@@ -171,7 +167,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 
   it("should have validation error when only mobile is sent",function(done){
     server
-    .post("/v1/users?mobile=66666666")
+    .post("/v1/users")
+    .send({mobile : "66666666"})
     .expect("Content-type",/json/)
     .expect(400) // THis is HTTP response
     .end(function(err,res){
@@ -187,7 +184,8 @@ describe("SAMPLE test 2 : POST /v1/users",function(){
 describe("SAMPLE test 3 : DEL /v1/users/{id}",function(){
   it("create a new user record then delete it",function(done){
     server
-    .post("/v1/users?userName=mocha&email=mocha@gmail.com&mobile=12345678")
+    .post("/v1/users")
+    .send({userName:"mocha",email:"mocha@gmail.com",mobile:"12345678"})
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err,res){
@@ -233,7 +231,8 @@ describe("SAMPLE test 3 : DEL /v1/users/{id}",function(){
 describe("SAMPLE test 4 : GET /v1/users/{id}",function(){
   it("create a new user record then GET it",function(done){
     server
-    .post("/v1/users?userName=mocha&email=mocha@gmail.com&mobile=12345678")
+    .post("/v1/users")
+    .send({userName:"mocha",email:"mocha@gmail.com",mobile:"12345678"})
     .expect("Content-type",/json/)
     .expect(200) // THis is HTTP response
     .end(function(err,res){
@@ -275,4 +274,3 @@ describe("SAMPLE test 4 : GET /v1/users/{id}",function(){
   });
 
 });
-

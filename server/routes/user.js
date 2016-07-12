@@ -77,7 +77,7 @@ const router = express.Router();	// eslint-disable-line new-cap
  *         required: true
  *         type: string
  *       - name: fields
- *         description: filter fields 
+ *         description: filter fields
  *         in: query
  *         required: false
  *         type: string
@@ -95,7 +95,7 @@ const router = express.Router();	// eslint-disable-line new-cap
  * @swagger
  * /users:
  *   post:
- *     description: Create User
+ *     description: Create User (body request)
  *     produces:
  *       - application/json
  *     tags:
@@ -168,7 +168,7 @@ const router = express.Router();	// eslint-disable-line new-cap
  * @swagger
  * /users/{id}:
  *   delete:
- *     description: Delete User
+ *     description: Delete User (body request)
  *     produces:
  *       - application/json
  *     tags:
@@ -209,14 +209,14 @@ const rules =  {
 		}
 	},
 	createUser: {
-		query: {
+		body: {
 			userName : Validator.User.userName.required(),
 			email : Validator.User.email.required(),
 			mobile: Validator.User.mobile.required()
 		}
 	},
 	updateUser: {
-		query: {
+		body: {
 			userName: Validator.User.userName.required(),
 			email : Validator.User.email.required(),
 			mobile: Validator.User.mobile.required()

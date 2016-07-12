@@ -38,9 +38,9 @@ async function getUser(req, res, next) {
 
 async function createUser(req, res, next) {
 	const user = new User({
-		userName : req.query.userName,
-		email : req.query.email,
-		mobile : req.query.mobile
+		userName : req.body.userName,
+		email : req.body.email,
+		mobile : req.body.mobile
 	});
 
 	const userObj = await user.saveAsync();
@@ -52,9 +52,9 @@ async function createUser(req, res, next) {
 async function updateUser(req, res, next) {
 	const query = {userId : req.params.userId };
 	const user = { $set : {
-		userName : req.query.userName,
-		email : req.query.email,
-		mobile : req.query.mobile
+		userName : req.body.userName,
+		email : req.body.email,
+		mobile : req.body.mobile
 	}};
 
 	const option = {
@@ -62,7 +62,7 @@ async function updateUser(req, res, next) {
 	}
 
 	const userObj = await User.findOneAndUpdate(query,user,option).execAsync();
-	
+
 	if(!userObj){
 		next(new NotFound());
 	}else{
