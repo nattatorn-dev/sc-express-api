@@ -10,6 +10,8 @@ import Response from '../helpers/Response';
 import payload from '../utils/payload';
 import swagger from './swagger';
 import logger from './logger';
+import telegram from './telegram';
+import config from './env';
 
 const app = express();
 
@@ -33,14 +35,14 @@ swaggerTools.initializeMiddleware(swagger, function (middleware) {
   app.use(middleware.swaggerValidator());
   app.use(middleware.swaggerRouter({
       controllers: './server/routes',
-      useStubs:false 
+      useStubs:false
   }));
   app.use(middleware.swaggerUi());
 });
 
 // payload handler
 app.use(function(obj, req, res, next){
-	var logId =  Math.floor((Math.random() * 10000) + 1); 
+	var logId =  Math.floor((Math.random() * 10000) + 1);
 	logger.info('[%s] ,%s, URL:%s, PATH:%s',logId, req.method, req.url, req.path);
 	logger.info('[%s] , QUERY:%s, BODY:%s',logId, JSON.stringify(req.query) , JSON.stringify(req.body));
 	if(obj instanceof Response){
@@ -54,6 +56,7 @@ app.use(function(obj, req, res, next){
 		return res.status(404).json(payload.noRecord()).end();
 	}else {
 		logger.error('[%s] ,SYSTEM ERROR:%s', logId, JSON.stringify(obj));
+    telegram.sendMessage(config.telegram.chatId, 'SYSTEM ERROR logId:' + logId + ', error:' + JSON.stringify(obj));
 		return res.status(500).json(payload.systemError(obj)).end();
 	}
 });
