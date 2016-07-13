@@ -56,3 +56,7 @@ http://ec2-52-196-132-150.ap-northeast-1.compute.amazonaws.com/docs/
 ## Room for improvement
 
 1) All use arrow function
+
+2) swagger set body request for POST and PUT
+
+
