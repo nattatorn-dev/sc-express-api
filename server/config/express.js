@@ -14,6 +14,7 @@ import swagger from './swagger';
 import logger from './logger';
 import telegram from './telegram';
 import config from './env';
+import mongoose from './mongoose';
 
 const app = express();
 
@@ -64,6 +65,5 @@ app.use((obj, req, res, next) => {
   telegram.sendMessage(config.telegram.chatId, `SYSTEM ERROR logId: ${logId}, error: ${objStr}`);
   return res.status(500).json(payload.systemError(obj)).end();
 });
-
 
 export default app;

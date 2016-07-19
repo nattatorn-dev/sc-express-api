@@ -11,7 +11,7 @@
   "dependencies": {
     "babel": "^6.3.26",
     "babel-core": "^6.3.26",
-    "babel-eslint": "^4.1.6",
+    "babel-eslint": "^6.1.2",
     "babel-plugin-transform-async-to-module-method": "^6.3.13",
     "babel-preset-es2015-node5": "^1.1.1",
     "babel-preset-stage-0": "^6.3.13",
@@ -42,7 +42,6 @@
     "eslint-plugin-import": "^1.8.1",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.2.2",
-    "flow-bin": "^0.27.0",
     "mocha": "^2.4.5",
     "should": "^7.1.1",
     "supertest": "^1.2.0"
