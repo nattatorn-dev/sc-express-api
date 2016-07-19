@@ -36,7 +36,7 @@ Also, a primary key counter recorded is needed in mongodb
 
 ##### start the application with real time watch
 
->  NODE_ENV=dev pm2 start index.js --watch --ignore-watch "node_modules"
+>  NODE_ENV=dev pm2 start index.js --name scapi
 
 ## RUN ON PRODUCTION ENV 
 
@@ -57,6 +57,6 @@ http://localhost:3000/docs/
 
 ## Room for improvement
 
-1) swagger with body param request for POST and PUT
+
 
 
