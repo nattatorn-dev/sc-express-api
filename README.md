@@ -51,7 +51,7 @@ Also, a primary key counter recorded is needed in mongodb
 dev, uat, prod stands for different environment
 
 ## API DOC
-Local
+Local Swagger Spec
 
 http://localhost:3000/docs/
 
