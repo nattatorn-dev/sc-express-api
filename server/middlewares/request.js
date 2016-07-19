@@ -19,8 +19,7 @@ function handleListParams(req, res, next) {
   const limit = typeof req.query.count === 'undefined' ? 10 : parseInt(req.query.count, 10);
   const skip = page * limit;
 
-  req.query.limit = limit;
-  req.query.skip = skip;
+  req.query = { limit, skip };
 
 	/* -----------------handle sort------------------------ */
   const sorts = req.query.sorts;

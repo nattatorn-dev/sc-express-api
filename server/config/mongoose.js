@@ -10,11 +10,11 @@ Promise.promisifyAll(mongoose);
 mongoose.connect(config.mongo.url, { server: { socketOptions: { keepAlive: 1 } } });
 
 mongoose.connection.on('open', () => {
-  logger.info('[MONGO] able to connect');
+  logger.info('[MONGO] connected');
 });
 
 mongoose.connection.on('error', () => {
-  logger.error('[MONGO] unable to connect : %s', config.mongo.url);
+  logger.error('[MONGO] fail to connect: %s', config.mongo.url);
 });
 
 export default mongoose;

@@ -3,21 +3,18 @@ import config from './env';
 import _ from 'lodash';
 import DailyRotate from 'winston-daily-rotate-file';
 
-const method = config.logger.method;
-const level = config.logger.level;
-const filePath = config.logger.filePath;
+const { method, level, filePath } = config.logger;
 
 winston.emitErrs = true;
-
 
 let transports = [];
 
 const commonConfig = {
-  level,
   handleExceptions: true,
   json: false,
   colorize: true,
   timestamp: true,
+  level,
 };
 
 const fileConfig = {
@@ -34,8 +31,8 @@ if (method === 'file') {
 }
 
 const logger = new winston.Logger({
-  transports,
   exitOnError: false,
+  transports,
 });
 
 export default logger;

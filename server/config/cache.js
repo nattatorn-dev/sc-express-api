@@ -6,15 +6,15 @@ import logger from './logger';
 const client = Promise.promisifyAll(redisCache(config.redis));
 
 client.on('connected', () => {
-  logger.info('[CACHE] CONNECTED');
+  logger.info('[REDIS] connected');
 });
 
 client.on('error', (error) => {
-  logger.error('[CACHE] %s', JSON.stringify(error));
+  logger.error('[REDIS] fail to connect: %s', JSON.stringify(error));
 });
 
 client.on('message', (message) => {
-  logger.info('[CACHE] %s', JSON.stringify(message));
+  logger.info('[REDIS] %s', JSON.stringify(message));
 });
 
 export default client;

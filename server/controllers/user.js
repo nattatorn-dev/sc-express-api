@@ -11,12 +11,7 @@ async function getUsers(req, res, next) {
     email: { $regex: new RegExp(req.query.email, 'i') },
     mobile: { $regex: new RegExp(req.query.mobile, 'i') },
   };
-
-  const limit = req.query.limit;
-  const skip = req.query.skip;
-  const fields = req.query.fields;
-  const sorts = req.query.sorts;
-
+  const { limit, skip, fields, sorts } = req.query;
   const users = await User.find(query, fields).sort(sorts).limit(limit)
 	.skip(skip)
 	.execAsync();
