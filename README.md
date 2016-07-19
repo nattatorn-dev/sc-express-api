@@ -30,6 +30,10 @@ Also, a primary key counter recorded is needed in mongodb
 
 > npm test
 
+##### run eslint test
+
+> eslint .
+
 ##### start the application with real time watch
 
 >  NODE_ENV=dev pm2 start index.js --watch --ignore-watch "node_modules"
@@ -51,14 +55,8 @@ Local
 
 http://localhost:3000/docs/
 
-Online demo on AWS
-
-http://ec2-52-196-132-150.ap-northeast-1.compute.amazonaws.com/docs/
-
 ## Room for improvement
 
-1) All use arrow function
-
-2) swagger set body request for POST and PUT
+2) swagger with body param request for POST and PUT
 
 
