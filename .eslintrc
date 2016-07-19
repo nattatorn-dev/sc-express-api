@@ -10,6 +10,6 @@
   "rules": {
     "no-param-reassign" : 0,
     "no-underscore-dangle": [1, { "allow": ["_id"] }],
-    "no-unused-vars": [1, { "argsIgnorePattern": "next" }]
+    "no-unused-vars": [1, { "argsIgnorePattern": "next", "varsIgnorePattern" : "should" }]
   }
 }
