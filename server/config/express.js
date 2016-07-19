@@ -5,6 +5,8 @@ import cors from 'cors';
 import routes from '../routes';
 import expressValidation from 'express-validation';
 import swaggerTools from 'swagger-tools';
+import helmet from 'helmet';
+
 import NotFound from '../helpers/NotFound';
 import Response from '../helpers/Response';
 import payload from '../utils/payload';
@@ -16,6 +18,7 @@ import config from './env';
 const app = express();
 
 // parse body params and attache them to req.body
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compress());
