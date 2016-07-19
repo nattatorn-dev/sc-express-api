@@ -17,11 +17,11 @@ async function getUsers(req, res, next) {
   const fields = req.query.fields;
   const sorts = req.query.sorts;
 
-  const usersObj = await User.find(query, fields).sort(sorts).limit(limit)
+  const users = await User.find(query, fields).sort(sorts).limit(limit)
 	.skip(skip)
 	.execAsync();
   const total = await User.count(query).execAsync();
-  const data = { users: usersObj, total };
+  const data = { users, total };
   next(new Response(data));
 }
 
@@ -29,31 +29,31 @@ async function getUser(req, res, next) {
   const fields = req.query.fields;
   const query = { userId: req.params.userId };
 
-  const userObj = await User.findOneAsync(query, fields);
-  if (!userObj) {
+  const user = await User.findOneAsync(query, fields);
+  if (!user) {
     next(new NotFound());
   } else {
-    const data = { user: userObj };
+    const data = { user };
     next(new Response(data));
   }
 }
 
 async function createUser(req, res, next) {
-  const user = new User({
+  const userParam = new User({
     userName: req.body.userName,
     email: req.body.email,
     mobile: req.body.mobile,
   });
 
-  const userObj = await user.saveAsync();
+  const user = await userParam.saveAsync();
   await cache.delAsync(cacheKey);
-  const data = { user: userObj };
+  const data = { user };
   next(new Response(data));
 }
 
 async function updateUser(req, res, next) {
   const query = { userId: req.params.userId };
-  const user = {
+  const userParam = {
     $set: {
       userName: req.body.userName,
       email: req.body.email,
@@ -62,25 +62,25 @@ async function updateUser(req, res, next) {
   };
 
   const option = { new: true };
-  const userObj = await User.findOneAndUpdate(query, user, option).execAsync();
+  const user = await User.findOneAndUpdate(query, userParam, option).execAsync();
 
-  if (!userObj) {
+  if (!user) {
     next(new NotFound());
   } else {
     await cache.delAsync(cacheKey);
-    const data = { user: userObj };
+    const data = { user };
     next(new Response(data));
   }
 }
 
 async function deleteUser(req, res, next) {
   const query = { userId: req.params.userId };
-  const userObj = await User.findOneAndRemoveAsync(query);
-  if (!userObj) {
+  const user = await User.findOneAndRemoveAsync(query);
+  if (!user) {
     next(new NotFound());
   } else {
     await cache.delAsync(cacheKey);
-    const data = { user: userObj };
+    const data = { user };
     next(new Response(data));
   }
 }

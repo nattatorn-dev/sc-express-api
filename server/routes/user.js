@@ -6,7 +6,25 @@ import errorCatcher from '../utils/errorCatcher';
 import Validator from '../utils/validator';
 
 const router = express.Router();	// eslint-disable-line new-cap
-
+/**
+* @swagger
+* definition:
+*  user:
+*   type: object
+*   required:
+*     - userName
+*     - email
+*     - mobile
+*   properties:
+*     userName:
+*       type: string
+*     email:
+*       type: string
+*       default: test@email.com
+*     mobile:
+*       type: string
+*       default: "23456789"
+*/
 /**
  * @swagger
  * /users:
@@ -100,21 +118,12 @@ const router = express.Router();	// eslint-disable-line new-cap
  *     tags:
  *       - UsersApi
  *     parameters:
- *       - name: userName
- *         description: userName
- *         in: query
+ *       - name: body
+ *         description: body
+ *         in: body
  *         required: true
- *         type: string
- *       - name: email
- *         description: email
- *         in: query
- *         required: true
- *         type: string
- *       - name: mobile
- *         description: mobile
- *         in: query
- *         required: true
- *         type: string
+ *         schema:
+*           $ref: "#/definitions/user"
  *     responses:
  *       200:
  *         description: success
@@ -138,21 +147,12 @@ const router = express.Router();	// eslint-disable-line new-cap
  *         in: path
  *         required: true
  *         type: string
- *       - name: userName
- *         description: userName
- *         in: query
+ *       - name: body
+ *         description: body
+ *         in: body
  *         required: true
- *         type: string
- *       - name: email
- *         description: email
- *         in: query
- *         required: true
- *         type: string
- *       - name: mobile
- *         description: mobile
- *         in: query
- *         required: true
- *         type: string
+ *         schema:
+*           $ref: "#/definitions/user"
  *     responses:
  *       200:
  *         description: success
