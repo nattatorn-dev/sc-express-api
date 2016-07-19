@@ -57,6 +57,6 @@ http://localhost:3000/docs/
 
 ## Room for improvement
 
-2) swagger with body param request for POST and PUT
+1) swagger with body param request for POST and PUT
 
 
