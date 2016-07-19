@@ -22,7 +22,6 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compress());
-app.disable('x-powered-by');
 app.use(cors());
 
 // mount all routes on /v1 path
