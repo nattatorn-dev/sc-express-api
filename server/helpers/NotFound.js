@@ -1,6 +1,4 @@
-class NotFound{
-	constructor() {
-	}
+class NotFound {
 }
 
 export default NotFound;

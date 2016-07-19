@@ -1,40 +1,42 @@
-/*-----------------handle field for mongo filter------------------------*/
-function handleFields(req,res,next){
-	var fields = req.query.fields;
-	var fieldsJson = {};
-	if(typeof fields !== "undefined"){
-		var fieldsArray = fields.split(',');
-		for(var i in fieldsArray){
-			fieldsJson[fieldsArray[i]] = 1;
-		}
-	}
-	req.query.fields = fieldsJson;
-	next();
-};
+import _ from 'lodash';
+/* -----------------handle field for mongo filter------------------------ */
+function handleFields(req, res, next) {
+  const fields = req.query.fields;
+  let fieldsJson = {};
+  if (typeof fields !== 'undefined') {
+    fieldsJson = _.reduce(fields.split(','), (acc, f) => {
+      acc[f] = 1;
+      return acc;
+    }, {});
+  }
+  req.query.fields = fieldsJson;
+  next();
+}
 
+function handleListParams(req, res, next) {
+	/* -----------------handle page and count------------------------ */
+  const page = typeof req.query.page === 'undefined' ? 0 : parseInt(req.query.page, 10);
+  const limit = typeof req.query.count === 'undefined' ? 10 : parseInt(req.query.count, 10);
+  const skip = page * limit;
 
-function handleListParams(req,res,next){
-	/*-----------------handle page and count------------------------*/
-	var page = typeof req.query.page === "undefined"  ? 0 : parseInt(req.query.page);
-	var limit = typeof req.query.count === "undefined" ? 10 : parseInt(req.query.count);
-	var skip  = page * limit;
+  req.query.limit = limit;
+  req.query.skip = skip;
 
-	req.query.limit = limit;
-	req.query.skip = skip;
+	/* -----------------handle sort------------------------ */
+  const sorts = req.query.sorts;
+  let sortsJson = {};
+  if (typeof sorts !== 'undefined') {
+    sortsJson = _.reduce(sorts.split(','), (acc, f) => {
+      if (f.startsWith('-')) {
+        acc[f.substr(1)] = -1;
+      } else {
+        acc[f] = 1;
+      }
+      return acc;
+    }, {});
+  }
+  req.query.sorts = sortsJson;
+  next();
+}
 
-	/*-----------------handle sort------------------------*/
-	var sorts = req.query.sorts;
-	var sortsJson = {};
-	if(typeof sorts !== "undefined"){
-		var sortsArray = sorts.split(',');
-		for(var i in sortsArray){
-			if(sortsArray[i].startsWith("-"))
-				sortsJson[sortsArray[i].substr(1)] = -1;
-			else 
-				sortsJson[sortsArray[i]] = 1;
-		}
-	}
-	req.query.sorts = sortsJson;
-	next();
-};
-export default {handleFields, handleListParams}
+export default { handleFields, handleListParams };
