@@ -1,3 +1,5 @@
+import APIError from '../helpers/APIError';
+
 export default function errorCatcher(fn) {
   if (!(fn instanceof Function)) {
     throw new Error('Must supply a function');
@@ -5,7 +7,7 @@ export default function errorCatcher(fn) {
   return (req, res, next) => {
     const promise = fn(req, res, next);
     if (promise.catch) {
-      promise.catch(err => next(err));
+      promise.catch(err => next(new APIError(err)));
     }
   };
 }

@@ -3,7 +3,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 const options = {
   swaggerDefinition: {
     info: {
-      title: 'sc express api es6', // Title (required)
+      title: 'sc express api', // Title (required)
       version: '1.0.0', // Version (required)
       description: `A sample project for REST CRUD API with mongoDB \n\n
       logging, profile, cache, swagger, babel, EC2016`,
@@ -22,7 +22,7 @@ const options = {
     ],
   },
   apis: [
-    './server/routes/user.js',
+    './server/config/apidoc/users.js',
   ],
 };
 

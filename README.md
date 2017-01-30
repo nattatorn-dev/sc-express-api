@@ -1,4 +1,4 @@
-# sc-express-api-es7
+# sc-express-api
 
 ## Description
 
@@ -6,8 +6,7 @@ A sample project for REST API with mongoDB with basic CRUD
 
 following <a href="http://jsonapi.org/">jsonapi features</a>, <a href = "https://github.com/airbnb/javascript">airbnb js style</a>
 
-logging, profile, bluebird, co, lodash, mongoose, redis-cache, helmet, swagger, babel, eslint, ES7
-
+ mongoose, redis-cache, helmet, swagger, babel, eslint, ES7, ..etc
 
 
 ## BEFORE RUN it
@@ -26,15 +25,7 @@ Also, a primary key counter recorded is needed in mongodb
 
 ##### install node_module
 
-> npm install
-
-##### run unit test
-
-> npm test
-
-##### run eslint test
-
-> eslint .
+> yarn install
 
 ##### start the application with real time watch
 
@@ -44,7 +35,7 @@ Also, a primary key counter recorded is needed in mongodb
 
 ##### install node_module
 
-> npm install --production
+> yarn install --production
 
 ##### start the application
 

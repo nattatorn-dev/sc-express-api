@@ -9,11 +9,10 @@ import helmet from 'helmet';
 
 import NotFound from '../helpers/NotFound';
 import Response from '../helpers/Response';
+import APIError from '../helpers/APIError';
 import payload from '../utils/payload';
 import swagger from './swagger';
 import logger from './logger';
-import telegram from './telegram';
-import config from './env';
 import mongoose from './mongoose';
 
 const app = express();
@@ -27,21 +26,6 @@ app.use(cors());
 
 // mount all routes on /v1 path
 app.use('/v1', routes);
-
-// swagger related
-app.get('/api-docs', (req, res) => {
-  res.json(swagger);
-});
-
-swaggerTools.initializeMiddleware(swagger, (middleware) => {
-  app.use(middleware.swaggerMetadata());
-  app.use(middleware.swaggerValidator());
-  app.use(middleware.swaggerRouter({
-    controllers: './server/routes',
-    useStubs: false,
-  }));
-  app.use(middleware.swaggerUi());
-});
 
 // payload handler
 app.use((obj, req, res, next) => {
@@ -58,12 +42,24 @@ app.use((obj, req, res, next) => {
   } else if (obj instanceof NotFound) {
     logger.warn('[%s] , NOTFOUND', logId);
     return res.status(404).json(payload.noRecord()).end();
+  } else if (obj instanceof APIError) {
+    return res.status(404).json(payload.systemError(obj.errors)).end();
   }
   // system error when obj is unfound
   const objStr = JSON.stringify(obj);
   logger.error('[%s] ,SYSTEM ERROR:%s', logId, objStr);
-  telegram.sendMessage(config.telegram.chatId, `SYSTEM ERROR logId: ${logId}, error: ${objStr}`);
   return res.status(500).json(payload.systemError(obj)).end();
+});
+
+// swagger related
+app.get('/api-docs', (req, res) => {
+  res.json(swagger);
+});
+
+swaggerTools.initializeMiddleware(swagger, (middleware) => {
+  app.use(middleware.swaggerMetadata());
+  app.use(middleware.swaggerValidator());
+  app.use(middleware.swaggerUi());
 });
 
 export default app;
